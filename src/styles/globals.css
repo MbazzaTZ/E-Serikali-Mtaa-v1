@@ -1,0 +1,171 @@
+/* -----------------------
+   Tanzania e-Services Portal
+   Global Styling & Utilities
+--------------------------*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------- Root Base -------- */
+html,
+body {
+  scroll-behavior: smooth;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #f9fafb;
+  color: #1f2937;
+  @apply dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300;
+}
+
+/* -------- Typography -------- */
+h1, h2, h3, h4 {
+  @apply font-bold text-gray-900 dark:text-white tracking-tight;
+}
+
+p {
+  @apply text-gray-700 dark:text-gray-300 leading-relaxed;
+}
+
+a {
+  @apply text-primary hover:text-secondary transition-colors duration-200;
+}
+
+/* -------- Buttons -------- */
+button {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all duration-200;
+}
+
+button:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* -------- Primary Colors -------- */
+:root {
+  --color-primary: #1363DF;
+  --color-secondary: #47B5FF;
+  --color-accent: #DFF6FF;
+}
+
+/* -------- Glass Effect Cards -------- */
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px);
+  border-radius: 1rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  @apply dark:bg-gray-800/40 dark:border-gray-700/50;
+}
+
+.glass-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* -------- NavBar Styles -------- */
+.navbar-link {
+  @apply flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+}
+
+.navbar-link:hover {
+  @apply bg-primary/10 text-primary;
+}
+
+.navbar-link.active {
+  @apply bg-primary/20 text-primary font-semibold;
+}
+
+/* -------- Animations -------- */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-scale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Utility animation classes */
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out forwards;
+}
+
+.animate-fade-scale {
+  animation: fade-scale 0.25s ease-out forwards;
+}
+
+/* -------- Dropdown & Modal -------- */
+.dropdown {
+  @apply absolute bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg;
+}
+
+.dropdown-item {
+  @apply px-4 py-2 hover:bg-primary/10 text-gray-700 dark:text-gray-200 cursor-pointer transition;
+}
+
+/* -------- Scrollbar Styling -------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* -------- Footer -------- */
+footer {
+  @apply text-sm text-gray-500 dark:text-gray-400 py-6 text-center;
+  background: linear-gradient(to right, rgba(19, 99, 223, 0.05), rgba(71, 181, 255, 0.05));
+}
+
+/* -------- Dark Mode Adjustments -------- */
+.dark .glass-card {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .navbar-link:hover {
+  @apply bg-primary/20 text-primary;
+}
+
+/* -------- Utility Helpers -------- */
+.text-gradient {
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-primary {
+  @apply bg-primary text-white rounded-lg px-4 py-2 hover:bg-secondary transition;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg px-4 py-2 hover:bg-primary hover:text-white transition;
+}
+
+/* -------- Mobile Responsiveness -------- */
+@media (max-width: 768px) {
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  .glass-card {
+    @apply p-4;
+  }
+}
