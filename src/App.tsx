@@ -1,15 +1,22 @@
-﻿import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+﻿import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+
+// Home & Dashboard
 import Home from "@/pages/home/Home";
 import Dashboard from "@/pages/dashboard/Dashboard";
-import VibaliMain from "@/pages/VibaliMain";
+
+// Verification
+import VerificationForm from "@/pages/home/VerificationForm";
+
+// Forms
 import ResidentCertificateForm from "@/pages/forms/ResidentCertificateForm";
 import BusinessPermitForm from "@/pages/forms/BusinessPermitForm";
 import IntroductionLetterForm from "@/pages/forms/IntroductionLetterForm";
 import CommunityDevelopmentForm from "@/pages/forms/CommunityDevelopmentForm";
 
-// Permit Pages
+// Vibali (Permits)
+import VibaliMain from "@/pages/VibaliMain";
 import UjenziPermitForm from "@/pages/permits/UjenziPermitForm";
 import MazishiPermitForm from "@/pages/permits/MazishiPermitForm";
 import EventEntertainmentPermitForm from "@/pages/permits/EventEntertainmentPermitForm";
@@ -18,75 +25,161 @@ import KilimoUmwagiliajiPermitForm from "@/pages/permits/KilimoUmwagiliajiPermit
 import UsafiPermitForm from "@/pages/permits/UsafiPermitForm";
 import MikusanyikoMikutanoPermitForm from "@/pages/permits/MikusanyikoMikutanoPermitForm";
 
-// Global Styles
-import "@/index.css";
+// Utility PDF Example
+import UseGeneratePDFExample from "@/lib/useGeneratePDFExample";
+
+// Styles
 import "@/styles/globals.css";
 
 export default function App() {
+  const isVerified = !!localStorage.getItem("verifiedUser");
+
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#f1f8e9] to-[#e3f2fd] dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
-        {/* Top Navigation */}
+      <div className="min-h-screen flex flex-col">
+        {/* Universal Navigation */}
         <Navbar />
 
         {/* Page Content */}
-        <main className="flex-grow container mx-auto px-4 py-8">
+        <main className="flex-grow pt-20">
           <Routes>
-            {/* Home */}
+            {/* Default route */}
             <Route path="/" element={<Home />} />
 
-            {/* Dashboard */}
-            <Route path="/dashboard" element={<Dashboard />} />
+            {/* Verification route */}
+            <Route
+              path="/verify"
+              element={
+                isVerified ? <Navigate to="/dashboard" /> : <VerificationForm />
+              }
+            />
 
-            {/* Forms Section */}
+            {/* Dashboard - Protected */}
+            <Route
+              path="/dashboard"
+              element={
+                isVerified ? <Dashboard /> : <Navigate to="/verify" replace />
+              }
+            />
+
+            {/* --- Forms --- */}
             <Route
               path="/forms/resident-certificate"
-              element={<ResidentCertificateForm />}
+              element={
+                isVerified ? (
+                  <ResidentCertificateForm />
+                ) : (
+                  <Navigate to="/verify" replace />
+                )
+              }
             />
-            <Route path="/forms/business-permit" element={<BusinessPermitForm />} />
+            <Route
+              path="/forms/business-permit"
+              element={
+                isVerified ? (
+                  <BusinessPermitForm />
+                ) : (
+                  <Navigate to="/verify" replace />
+                )
+              }
+            />
             <Route
               path="/forms/introduction-letter"
-              element={<IntroductionLetterForm />}
+              element={
+                isVerified ? (
+                  <IntroductionLetterForm />
+                ) : (
+                  <Navigate to="/verify" replace />
+                )
+              }
             />
             <Route
               path="/forms/community-development"
-              element={<CommunityDevelopmentForm />}
+              element={
+                isVerified ? (
+                  <CommunityDevelopmentForm />
+                ) : (
+                  <Navigate to="/verify" replace />
+                )
+              }
             />
 
-            {/* Permits Section */}
+            {/* --- Vibali (Permits) --- */}
             <Route path="/vibali" element={<VibaliMain />} />
-            <Route path="/permits/ujenzi" element={<UjenziPermitForm />} />
-            <Route path="/permits/mazishi" element={<MazishiPermitForm />} />
             <Route
-              path="/permits/matukio"
-              element={<EventEntertainmentPermitForm />}
+              path="/vibali/ujenzi"
+              element={
+                isVerified ? <UjenziPermitForm /> : <Navigate to="/verify" replace />
+              }
             />
             <Route
-              path="/permits/usafirishaji"
-              element={<TransportationPermitForm />}
+              path="/vibali/mazishi"
+              element={
+                isVerified ? <MazishiPermitForm /> : <Navigate to="/verify" replace />
+              }
             />
             <Route
-              path="/permits/kilimo"
-              element={<KilimoUmwagiliajiPermitForm />}
+              path="/vibali/event"
+              element={
+                isVerified ? (
+                  <EventEntertainmentPermitForm />
+                ) : (
+                  <Navigate to="/verify" replace />
+                )
+              }
             />
-            <Route path="/permits/usafi" element={<UsafiPermitForm />} />
             <Route
-              path="/permits/mikusanyiko"
-              element={<MikusanyikoMikutanoPermitForm />}
+              path="/vibali/transportation"
+              element={
+                isVerified ? (
+                  <TransportationPermitForm />
+                ) : (
+                  <Navigate to="/verify" replace />
+                )
+              }
+            />
+            <Route
+              path="/vibali/kilimo"
+              element={
+                isVerified ? (
+                  <KilimoUmwagiliajiPermitForm />
+                ) : (
+                  <Navigate to="/verify" replace />
+                )
+              }
+            />
+            <Route
+              path="/vibali/usafi"
+              element={
+                isVerified ? <UsafiPermitForm /> : <Navigate to="/verify" replace />
+              }
+            />
+            <Route
+              path="/vibali/mikusanyiko"
+              element={
+                isVerified ? (
+                  <MikusanyikoMikutanoPermitForm />
+                ) : (
+                  <Navigate to="/verify" replace />
+                )
+              }
             />
 
-            {/* 404 Fallback */}
+            {/* PDF Test Page */}
+            <Route path="/test-pdf" element={<UseGeneratePDFExample />} />
+
+            {/* Fallback 404 */}
             <Route
               path="*"
               element={
-                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-                  <h1 className="text-5xl font-bold text-primary mb-4">404</h1>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6">
+                <div className="flex flex-col justify-center items-center text-center py-40">
+                  <h1 className="text-5xl font-bold text-primary mb-3">404</h1>
+                  <p className="text-gray-600 dark:text-gray-300">
                     Samahani, ukurasa huu haupatikani.
                   </p>
                   <a
                     href="/"
-                    className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition"
+                    className="mt-6 bg-primary text-white px-5 py-2 rounded-lg hover:bg-secondary transition"
                   >
                     Rudi Nyumbani
                   </a>
@@ -96,7 +189,7 @@ export default function App() {
           </Routes>
         </main>
 
-        {/* Footer */}
+        {/* Universal Footer */}
         <Footer />
       </div>
     </Router>
