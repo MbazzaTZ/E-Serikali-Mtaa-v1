@@ -2,131 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =====================================
-   🌍 GLOBAL BASE STYLES
-   ===================================== */
+/* Custom global styles */
 html, body {
-  @apply min-h-screen font-sans bg-neutral text-gray-900 transition-colors duration-500;
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+  background-color: #f9fafb;
+  font-family: 'Inter', sans-serif;
 }
 
-body {
-  background: linear-gradient(135deg, rgba(0,112,74,0.05), rgba(0,75,135,0.05));
-  background-attachment: fixed;
+:root {
+  --primary: #0d9488;
+  --secondary: #065f46;
 }
 
-.dark body {
-  @apply bg-gray-950 text-gray-100;
-  background: linear-gradient(135deg, rgba(0,75,135,0.2), rgba(0,0,0,0.8));
+body.dark {
+  background-color: #0b0b0b;
+  color: #e5e7eb;
 }
 
-/* =====================================
-   🧱 CONTAINER UTILITY
-   ===================================== */
-.container {
-  @apply max-w-6xl mx-auto px-4;
+/* Smooth dropdown animation */
+.dropdown-enter {
+  opacity: 0;
+  transform: translateY(-10px);
 }
-
-/* =====================================
-   ✨ GLASS STYLE PANELS
-   ===================================== */
-.bg-glass-panel {
-  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+.dropdown-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
-.dark .bg-glass-panel {
-  background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+.dropdown-exit {
+  opacity: 1;
 }
-
-/* =====================================
-   🔤 TYPOGRAPHY & TEXT ENHANCEMENTS
-   ===================================== */
-h1, h2, h3 {
-  @apply font-heading text-primary;
-}
-
-p {
-  @apply leading-relaxed text-gray-700 dark:text-gray-300;
-}
-
-/* =====================================
-   🖱️ BUTTONS
-   ===================================== */
-button {
-  @apply transition duration-300 ease-in-out;
-}
-
-/* =====================================
-   📜 SCROLLBAR STYLING
-   ===================================== */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,0.2);
-  border-radius: 8px;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background-color: rgba(255,255,255,0.2);
-}
-
-/* =====================================
-   🔗 LINK STYLES
-   ===================================== */
-a {
-  @apply text-accent hover:text-secondary;
-}
-
-/* =====================================
-   🎞️ ANIMATIONS
-   ===================================== */
-
-/* --- Smooth dropdown animation for mobile menu --- */
-@keyframes slide-down {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* --- Apply to animated dropdown panels --- */
-.animate-slide-down {
-  animation: slide-down 0.35s ease-out forwards;
-}
-
-/* --- Soft fade for transitions (buttons, cards, etc.) --- */
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.4s ease-in-out forwards;
-}
-
-/* --- Floating glass hover effect --- */
-.hover-glass {
-  transition: all 0.3s ease-in-out;
-}
-
-.hover-glass:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* =====================================
-   🌙 DARK MODE IMPROVEMENTS
-   ===================================== */
-.dark h1, .dark h2, .dark h3 {
-  @apply text-secondary;
-}
-
-.dark a {
-  @apply text-secondary hover:text-primary;
+.dropdown-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
