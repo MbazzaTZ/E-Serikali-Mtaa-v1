@@ -2,40 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom global styles */
+/* global styles */
 html, body {
   height: 100%;
   width: 100%;
   scroll-behavior: smooth;
-  background-color: #f9fafb;
   font-family: 'Inter', sans-serif;
-}
-
-:root {
-  --primary: #0d9488;
-  --secondary: #065f46;
-}
-
-body.dark {
-  background-color: #0b0b0b;
-  color: #e5e7eb;
-}
-
-/* Smooth dropdown animation */
-.dropdown-enter {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-.dropdown-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.dropdown-exit {
-  opacity: 1;
-}
-.dropdown-exit-active {
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  background-color: #f9fafb;
 }
